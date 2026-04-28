@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mortgage Rate Options — 3013 W Terrace Dr</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #ffffff;
+      --bg-secondary: #f5f5f3;
+      --bg-info: #e6f1fb;
+      --bg-success: #eaf3de;
+      --text-primary: #1a1a18;
+      --text-secondary: #5f5e5a;
+      --text-tertiary: #888780;
+      --text-info: #185fa5;
+      --text-success: #3b6d11;
+      --border: rgba(0,0,0,0.12);
+      --border-md: rgba(0,0,0,0.22);
+      --border-info: #378add;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --font: system-ui, -apple-system, 'Segoe UI', sans-serif;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1e1e1c;
+        --bg-secondary: #2a2a27;
+        --bg-info: #042c53;
+        --bg-success: #173404;
+        --text-primary: #f0ede6;
+        --text-secondary: #b4b2a9;
+        --text-tertiary: #888780;
+        --text-info: #85b7eb;
+        --text-success: #97c459;
+        --border: rgba(255,255,255,0.1);
+        --border-md: rgba(255,255,255,0.22);
+        --border-info: #378add;
+      }
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      padding: 2rem 1rem;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    header { margin-bottom: 2rem; }
+    header h1 { font-size: 20px; font-weight: 500; color: var(--text-primary); }
+    header p { font-size: 14px; color: var(--text-secondary); margin-top: 4px; }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+
+    @media (max-width: 600px) {
+      .grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .card {
+      background: var(--bg);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 14px 16px;
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+    .card:hover { border-color: var(--border-md); }
+    .card.active { border: 2px solid var(--border-info); }
+
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: var(--radius-md);
+      margin-bottom: 8px;
+      background: var(--bg-info);
+      color: var(--text-info);
+    }
+    .badge.success {
+      background: var(--bg-success);
+      color: var(--text-success);
+    }
+
+    .rate { font-size: 22px; font-weight: 500; color: var(--text-primary); line-height: 1.1; }
+    .pi { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
+    .cost-line {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 0.5px solid var(--border);
+    }
+    .cost-line span { color: var(--text-primary); font-weight: 500; }
+
+    .detail-panel {
+      margin-top: 12px;
+      background: var(--bg);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+    }
+
+    .detail-header {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .detail-rate { font-size: 28px; font-weight: 500; color: var(--text-primary); }
+    .detail-label { font-size: 13px; color: var(--text-secondary); }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .metric {
+      background: var(--bg-secondary);
+      border-radius: var(--radius-md);
+      padding: 10px 12px;
+    }
+    .metric-label { font-size: 11px; color: var(--text-tertiary); margin-bottom: 4px; }
+    .metric-value { font-size: 16px; font-weight: 500; color: var(--text-primary); }
+    .metric-value.green { color: var(--text-success); }
+
+    .breakeven {
+      font-size: 12px;
+      color: var(--text-secondary);
+      padding-top: 12px;
+      border-top: 0.5px solid var(--border);
+      line-height: 1.7;
+    }
+    .breakeven strong { color: var(--text-primary); font-weight: 500; }
+
+    .divider {
+      border: none;
+      border-top: 0.5px solid var(--border);
+      margin: 1.5rem 0;
+    }
+
+    .aside {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 8px;
+    }
+
+    .aside-card {
+      background: var(--bg);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 14px 16px;
+    }
+    .aside-title {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 6px;
+    }
+    .aside-note { font-size: 11px; color: var(--text-tertiary); margin-top: 5px; }
+
+    .footer-note {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      margin-top: 1.5rem;
+      line-height: 1.7;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Mortgage rate options</h1>
+      <p>3013 W Terrace Dr · $740,000 loan · 30-yr fixed · 20% down · est. closing 5/15</p>
+    </header>
+
+    <div class="section-label">Pennymac 30 yr fixed — select an option</div>
+    <div class="grid" id="main-grid">
+      <div class="card active" onclick="select(0)">
+        <div class="badge success">~zero cost</div>
+        <div class="rate">6.250%</div>
+        <div class="pi">$4,556 / mo P&I</div>
+        <div class="cost-line">Net cost: <span>~$0</span></div>
+      </div>
+      <div class="card" onclick="select(1)">
+        <div class="badge">~1 point</div>
+        <div class="rate">5.875%</div>
+        <div class="pi">$4,377 / mo P&I</div>
+        <div class="cost-line">Points: <span>~$8,517</span></div>
+      </div>
+      <div class="card" onclick="select(2)">
+        <div class="badge">~1.5 points</div>
+        <div class="rate">5.750%</div>
+        <div class="pi">$4,318 / mo P&I</div>
+        <div class="cost-line">Points: <span>~$12,499</span></div>
+      </div>
+      <div class="card" onclick="select(3)">
+        <div class="badge">~2 points</div>
+        <div class="rate">5.500%</div>
+        <div class="pi">$4,202 / mo P&I</div>
+        <div class="cost-line">Points: <span>~$20,002</span></div>
+      </div>
+    </div>
+
+    <div class="detail-panel" id="detail-panel"></div>
+
+    <hr class="divider">
+
+    <div class="section-label">Alternative option</div>
+    <div class="aside">
+      <div class="aside-card">
+        <div class="aside-title">Pennymac 5/6 ARM · lowest payment</div>
+        <div class="rate">5.375%</div>
+        <div class="pi" style="font-size:13px; margin-top:4px;">$4,144 / mo P&I</div>
+        <div class="cost-line" style="font-size:12px;">Cost: <span>~$9,250</span> (1.25 pts)</div>
+        <div class="aside-note">Fixed 5 yrs then adjusts. Not for rate-sensitive buyers.</div>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      P&I only — taxes, insurance &amp; HOA not included. Closing costs (title, escrow, prepaids) TBD.
+      Rates subject to credit approval and market conditions.
+    </div>
+  </div>
+
+  <script>
+    const options = [
+      {
+        rate: '6.250%',
+        label: 'Zero-cost option',
+        pi: 4556,
+        pointsLabel: '~$0',
+        savings: 0,
+        breakeven: null,
+        note: 'A small lender credit (~$1,384) offsets origination fees entirely. Nothing out of pocket on rate. Best choice if keeping the loan short-term or preserving cash at closing.',
+      },
+      {
+        rate: '5.875%',
+        label: '~1 point buydown',
+        pi: 4377,
+        pointsLabel: '~$8,517',
+        savings: 179,
+        breakeven: 48,
+        note: 'Sweet spot for most buyers. Meaningful rate reduction at a reasonable cost. Break-even in 4 years — strong choice if planning to stay 5+ years.',
+      },
+      {
+        rate: '5.750%',
+        label: '~1.5 point buydown',
+        pi: 4318,
+        pointsLabel: '~$12,499',
+        savings: 238,
+        breakeven: 53,
+        note: 'Solid additional savings over the 1-point option for ~$4,000 more. Break-even just under 4.5 years. Good if confident in a long hold.',
+      },
+      {
+        rate: '5.500%',
+        label: '~2 point buydown',
+        pi: 4202,
+        pointsLabel: '~$20,002',
+        savings: 354,
+        breakeven: 57,
+        note: 'Maximum buydown shown. Strong long-term value but requires significant upfront cash. Break-even ~4.7 years. Best if planning to hold 7–10+ years.',
+      }
+    ];
+
+    function fmt(n) { return '$' + n.toLocaleString(); }
+
+    function select(i) {
+      document.querySelectorAll('.card').forEach((c, idx) => {
+        c.classList.toggle('active', idx === i);
+      });
+      render(i);
+    }
+
+    function render(i) {
+      const o = options[i];
+      const panel = document.getElementById('detail-panel');
+      const beText = o.breakeven
+        ? `<strong>Break-even:</strong> ~${o.breakeven} months (${(o.breakeven / 12).toFixed(1)} yrs) — points paid back through monthly savings after that point.`
+        : 'No upfront cost — no break-even calculation needed.';
+      const savRow = o.savings > 0
+        ? `<div class="metric"><div class="metric-label">Monthly savings vs. no-cost</div><div class="metric-value green">${fmt(o.savings)}/mo</div></div>`
+        : `<div class="metric"><div class="metric-label">Monthly savings</div><div class="metric-value">Baseline</div></div>`;
+      const beMetric = o.breakeven
+        ? `<div class="metric"><div class="metric-label">Break-even</div><div class="metric-value">${o.breakeven} mo</div></div>`
+        : '';
+
+      panel.innerHTML = `
+        <div class="detail-header">
+          <div class="detail-rate">${o.rate}</div>
+          <div class="detail-label">${o.label}</div>
+        </div>
+        <div class="detail-grid">
+          <div class="metric">
+            <div class="metric-label">Monthly P&I</div>
+            <div class="metric-value">${fmt(o.pi)}</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Points / upfront cost</div>
+            <div class="metric-value">${o.pointsLabel}</div>
+          </div>
+          ${savRow}
+          ${beMetric}
+        </div>
+        <div class="breakeven">${beText}<br><br>${o.note}</div>
+      `;
+    }
+
+    render(0);
+  </script>
+</body>
+</html>
